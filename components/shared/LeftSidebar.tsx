@@ -11,7 +11,7 @@ const LeftSidebar = () => {
   const router = useRouter();
   const pathname = usePathname()
   return (
-    <section className='custom-scrollbar scrollbar-w-3 scrollbar-h-3 scrollbar-thumb-rounded-full scrollbar-thumb-gray-500 sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto border-r border-r-dark-4 bg-dark-2 pb-5 pt-28 max-md:hidden bg-gray-950'>
+    <section className='custom-scrollbar scrollbar-w-3 scrollbar-h-3 scrollbar-thumb-rounded-full scrollbar-thumb-gray-500 sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto border-r border-r-dark-4 pb-5 pt-28 max-md:hidden bg-gray-950'>
       <div className='flex w-full flex-1 flex-col gap-6 px-6'>
          {/* <Link ></Link> */}
          {sidebarLinks.map((link)=>{
