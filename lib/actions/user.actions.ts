@@ -12,9 +12,11 @@ interface Params {
   image:string,
   path:string
 }
+console.log("MongoDB connect")
+connectToDB();
 
 export const updateUser = async ({userId,username,name,bio,image,path}:Params):Promise<void> => {
-  connectToDB();
+  // connectToDB();
 
   try {
     await User.findOneAndUpdate(
@@ -36,3 +38,17 @@ export const updateUser = async ({userId,username,name,bio,image,path}:Params):P
     throw new Error(`Failed to create/update user: ${error.message}`)
   }
 };
+
+export const getUser = async (userId:string) => {
+  try {
+    // connectToDB();
+    const user = await User.findOne({id:userId})
+    // .populate({
+    //   path:'communities',
+    //   model: "Community"
+    // })
+    return user;
+  } catch (error:any) {
+    console.log(error.message)
+  }
+}
