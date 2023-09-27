@@ -6,6 +6,8 @@ import { UserValidation } from '@/lib/validations/user.'
 import { isBase64Image } from '@/lib/utils'
 import z from 'zod'
 import { useUploadThing } from '@/lib/uploadthing'
+import { updateUser } from '@/lib/actions/user.actions'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface User {
   id:string
@@ -21,6 +23,9 @@ const useAccountProfile = (user:User) => {
   const [files,setFiles] = useState<File[]>([])
 
   const { startUpload } = useUploadThing("media");
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm({
     resolver: zodResolver(UserValidation),
@@ -49,7 +54,9 @@ const useAccountProfile = (user:User) => {
   }; 
 
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
-    console.log(values)
+
+    console.log(values);
+    
     const blob = values.profile_photo;
 
     const hasImageChanged = isBase64Image(blob);
@@ -62,6 +69,20 @@ const useAccountProfile = (user:User) => {
     }
 
     // TODO: Update user profile
+    await updateUser({
+      userId: user.id,
+      username: values.username,
+      name:values.name,
+      image:values.profile_photo,
+      bio:values.bio,
+      path:pathname
+    });
+
+    if(pathname === '/profile/edit'){
+      router.back();
+    } else {
+      router.push('/');
+    }
   };
 
   return { form, handleImage, onSubmit}
