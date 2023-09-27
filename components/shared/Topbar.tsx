@@ -8,7 +8,7 @@ const Topbar = () => {
     <nav className='fixed top-0 z-30 flex w-full items-center justify-between bg-dark-2 px-6 py-3 bg-gray-950'>
       <Link href="/" className='flex items-center gap-4'>
         <Image src="/assets/logo.svg" alt="logo" width={28} height={28}/>
-        <p className='text-2xl font-bold'>Threads</p>
+        <p className='text-2xl font-bold text-gray-100'>Threads</p>
       </Link>
       <div className='flex items-center gap-1'>
         <div className='block md:hidden'>
