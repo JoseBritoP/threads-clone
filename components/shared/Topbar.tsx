@@ -5,7 +5,7 @@ import { OrganizationSwitcher, SignedIn,SignOutButton } from '@clerk/nextjs'
 import { dark } from '@clerk/themes'
 const Topbar = () => {
   return (
-    <nav className='fixed top-0 z-30 flex w-full items-center justify-between bg-dark-2 px-6 py-3 bg-gray-950'>
+    <nav className='fixed top-0 z-30 flex w-full items-center justify-between px-6 py-3 bg-gray-950 border-b-2 border-b-gray-900'>
       <Link href="/" className='flex items-center gap-4'>
         <Image src="/assets/logo.svg" alt="logo" width={28} height={28}/>
         <p className='text-2xl font-bold text-gray-100'>Threads</p>
