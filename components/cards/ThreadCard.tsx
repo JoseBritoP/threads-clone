@@ -48,13 +48,13 @@ const ThreadCard = ({id, currentUserId, parentId, content, author, community, cr
             <div className='flex gap-3'>
               <Image src="/assets/heart-gray.svg" alt='heart' width={24} height={24} className='hover:cursor-pointer object-contain'/>
               <Link href={`/thread/${id}`}>
+                <Image src="/assets/reply.svg" alt='reply' width={24} height={24} className='hover:cursor-pointer object-contain'/>
               </Link>
-              <Image src="/assets/reply.svg" alt='reply' width={24} height={24} className='hover:cursor-pointer object-contain'/>
               <Image src="/assets/repost.svg" alt='repost' width={24} height={24} className='hover:cursor-pointer object-contain'/>
               <Image src="/assets/share.svg" alt='share' width={24} height={24} className='hover:cursor-pointer object-contain'/>
             </div>
             {isComment && comments.length > 0 && (
-              <Link href={`/thread/${id}`}>
+              <Link href={`/thread/${id}`} className='bg-red-500 p-4'>
                 <p className='mt-1 text-lg text-gray-300'>{comments.length} replies</p>
               </Link>
             ) }
