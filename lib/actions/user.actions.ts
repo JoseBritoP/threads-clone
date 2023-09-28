@@ -12,12 +12,9 @@ interface Params {
   image:string,
   path:string
 }
-console.log("MongoDB connect")
-connectToDB();
 
 export const updateUser = async ({userId,username,name,bio,image,path}:Params):Promise<void> => {
-  // connectToDB();
-
+  connectToDB();
   try {
     await User.findOneAndUpdate(
       {id:userId},
@@ -40,8 +37,8 @@ export const updateUser = async ({userId,username,name,bio,image,path}:Params):P
 };
 
 export const getUser = async (userId:string) => {
+  connectToDB();
   try {
-    // connectToDB();
     const user = await User.findOne({id:userId})
     // .populate({
     //   path:'communities',
