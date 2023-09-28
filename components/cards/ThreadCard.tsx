@@ -30,7 +30,7 @@ const ThreadCard = ({id, currentUserId, parentId, content, author, community, cr
 
   //TODO: Like buttom
   return (
-    <article className="flex w-full flex-col rounded-xl bg-[#111] p-7">
+    <article className={`flex w-full flex-col rounded-xl p-7 ${isComment ? 'px-0 sm:px-7' : 'bg-[#111]'}`}>
       <div className="flex items-start justify-between">
         <div className="flex w-full flex-1 flex-row gap-4">
           <div className="flex flex-col items-center">
@@ -53,11 +53,11 @@ const ThreadCard = ({id, currentUserId, parentId, content, author, community, cr
               <Image src="/assets/repost.svg" alt='repost' width={24} height={24} className='hover:cursor-pointer object-contain'/>
               <Image src="/assets/share.svg" alt='share' width={24} height={24} className='hover:cursor-pointer object-contain'/>
             </div>
-            {isComment && comments.length > 0 && (
+            {/* {isComment && comments.length > 0 && (
               <Link href={`/thread/${id}`} className='bg-red-500 p-4'>
                 <p className='mt-1 text-lg text-gray-300'>{comments.length} replies</p>
               </Link>
-            ) }
+            ) } */}
            </div>
           </div>
         </div>
