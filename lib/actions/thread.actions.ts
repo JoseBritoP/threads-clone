@@ -7,6 +7,7 @@ import { connectToDB } from "../mongoose";
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
 import Community from "../models/community.model";
+import { threadId } from "worker_threads";
 
 interface Params {
   text: string,
@@ -125,3 +126,46 @@ export async function getThreadById(id:string) {
     throw new Error(`Error fetching thread: ${error.message}`)
   }
 };
+
+interface NewComment {
+  threadId:string,
+  commentText:string,
+  userId:string,
+  path:string
+}
+
+export async function addCommentToThread( {threadId,commentText,userId, path}:NewComment) {
+  try {
+    // Find the original thread by its ID
+    // console.log(threadId)
+    // console.log(commentText)
+    // console.log(userId)
+    // console.log(path)
+    const originalThread = await Thread.findById(threadId);
+
+    if (!originalThread) {
+      throw new Error("Thread not found");
+    }
+
+    // Create the new comment thread
+    const commentThread = new Thread({
+      text: commentText,
+      author: userId,
+      parentId: threadId,
+    });
+
+    // Save the comment thread to the database
+    const savedCommentThread = await commentThread.save();
+
+    // Add the comment thread's ID to the original thread's children array
+    originalThread.children.push(savedCommentThread._id);
+
+    // Save the updated original thread to the database
+    await originalThread.save();
+
+    revalidatePath(path);
+  } catch (err) {
+    console.error("Error while adding comment:", err);
+    throw new Error("Unable to add comment");
+  }
+}
