@@ -1,17 +1,17 @@
 "use client";
 
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { usePathname } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
+// import { z } from "zod";
+// import { useForm } from "react-hook-form";
+// import { usePathname } from "next/navigation";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { CommentValidation } from "@/lib/validations/thread";
+// import { addCommentToThread } from "@/lib/actions/thread.actions";
 
 import Image from "next/image";
 import { Form, FormControl, FormField, FormItem, FormLabel,} from "@/components/ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-
-import { CommentValidation } from "@/lib/validations/thread";
-import { addCommentToThread } from "@/lib/actions/thread.actions";
+import useComment from "@/hooks/useComment";
 
 interface Props {
   threadId: string;
@@ -20,26 +20,26 @@ interface Props {
 }
 
 function Comment({ threadId, currentUserImg, currentUserId }: Props) {
-  const pathname = usePathname();
 
-  const form = useForm<z.infer<typeof CommentValidation>>({
-    resolver: zodResolver(CommentValidation),
-    defaultValues: {
-      thread: "",
-    },
-  });
+  const { form, onSubmit } = useComment({threadId,currentUserId})
 
-  const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
-    console.log(values)
-    await addCommentToThread({
-      threadId,
-      commentText:values.thread,
-      userId:JSON.parse(currentUserId),
-      path:pathname
-    });
+  // const form = useForm<z.infer<typeof CommentValidation>>({
+  //   resolver: zodResolver(CommentValidation),
+  //   defaultValues: {
+  //     thread: "",
+  //   },
+  // });
 
-    form.reset();
-  };
+  // const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
+  //   console.log(values)
+  //   await addCommentToThread({
+  //     threadId,
+  //     commentText:values.thread,
+  //     userId:JSON.parse(currentUserId),
+  //     path:pathname
+  //   });
+  //   form.reset();
+  // };
 
   return (
     <Form {...form}>
