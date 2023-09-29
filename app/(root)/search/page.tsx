@@ -25,7 +25,7 @@ const Page = async () => {
 
   return (
     <section>
-      <h1 className='text-2xl font-semibold mb-10 text-white'>Search</h1>
+      <h1 className='text-4xl font-bold mb-10 text-white'>Search</h1>
       {/* Searchbar */}
 
       <div className='mt-14 flex flex-col gap-9'>
